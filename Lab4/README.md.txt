@@ -133,3 +133,4 @@ class Media {
     }
 }
 ~~
+ Denisa's prompt: add to the EventOrganizer class this methods: createEvent(event: Event), addGiftToWishlist, removeGiftFromWishlist, manageFunds, receiveFunds
