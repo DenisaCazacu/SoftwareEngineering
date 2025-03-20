@@ -1,8 +1,9 @@
 import java.util.List;
+import java.util.UUID;
 
 public class Guest extends User {
 
-    public Guest(String id, String name, String email, String password) {
+    public Guest(UUID id, String name, String email, String password) {
         super(id, name, email, password);
     }
 

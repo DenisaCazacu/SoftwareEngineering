@@ -1,17 +1,19 @@
+import java.util.UUID;
+
 public class Gift {
-    final String id;
+    final UUID id;
     String name;
     float price;
     float contributedAmount;
 
-    public Gift(String id, String name, float price) {
+    public Gift(UUID id, String name, float price) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.contributedAmount = 0;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

@@ -1,8 +1,9 @@
 import java.util.List;
+import java.util.UUID;
 
 public class Wishlist {
     float moneyGifted;
-    final String id;
+    final UUID id;
     //Event event;
     List<Gift> gifts;
 

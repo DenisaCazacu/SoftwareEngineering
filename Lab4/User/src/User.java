@@ -1,17 +1,20 @@
+import java.util.Objects;
+import java.util.UUID;
+
 abstract public class User {
-    final String id;
+    final UUID id;
     String name;
     String email;
     String password;
 
-    public User(String id, String name, String email, String password) {
+    public User(UUID id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -50,5 +53,17 @@ abstract public class User {
             }
         }
         return at == 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
