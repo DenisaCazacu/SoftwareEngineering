@@ -7,7 +7,7 @@ public class Wishlist {
     //Event event;
     List<Gift> gifts;
 
-    public Wishlist(String id) {
+    public Wishlist(UUID id) {
         this.id = id;
     }
 
