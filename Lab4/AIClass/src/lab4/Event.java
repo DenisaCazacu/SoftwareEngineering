@@ -1,24 +1,13 @@
-The prompt used for chat gpt is the following:
-"
-I need you to create a Java class that is called "Event" in which it will have as variables:
-id as a UUID
-name as a string
-date as a date
-location as a string
-organizer as a EventOrganizer
-wishlist as a Wishlist
-photoGallery as a List<Media>
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package lab4;
 
-It will have the methods:
-addPhoto(photo: Media)
-removePhoto(photo: Media)
-
-Make sure for the methods its done in a more theoritical manner with the ability to be tested using example parameters, and other classes are taken as a given.
-"
-
-The code it has generated was in its entirely correct, resembling 3 classes it created along with the main one i asked of it which are: EventOrganizer, Media and Wishlist
-There was no errors, the only change was that i had to add the was the package for it to use, it has included a test within the class, and it has run without issues, the full code it generated:
-~~
+/**
+ *
+ * @author Wissam, Denisa
+ */
 import java.util.UUID;
 import java.util.Date;
 import java.util.List;
@@ -94,30 +83,109 @@ public class Event {
         // Test removePhoto method.
         event.removePhoto(photo1);
         System.out.println("Photo Gallery after removing photo1: " + event.getPhotoGallery());
+
+
+        // Testing fund management
+        organizer.receiveFunds(500.0);
+        organizer.manageFunds(200.0);
+        organizer.manageFunds(400.0); // Should print insufficient funds
+
+        organizer.createEvent(event);
+
+        // Testing wishlist management
+        organizer.addGiftToWishlist("New Projector");
+        organizer.addGiftToWishlist("Speakers");
+        organizer.removeGiftFromWishlist("New Projector");
+
+        // Printing final states
+        System.out.println(organizer);
     }
 }
 
-// Minimal stub implementation of EventOrganizer for testing purposes.
+// Updated EventOrganizer class with additional methods
 class EventOrganizer {
     private String name;
+    private List<Event> organizedEvents;
+    private Wishlist wishlist;
+    private double funds;
 
     public EventOrganizer(String name) {
         this.name = name;
+        this.organizedEvents = new ArrayList<>();
+        this.wishlist = new Wishlist();
+        this.funds = 0.0;
+    }
+
+    // Method to create and store an event
+    public void createEvent(Event event) {
+        if (event != null) {
+            organizedEvents.add(event);
+            System.out.println("Event created: " + event);
+        }
+    }
+
+    // Method to add a gift to the wishlist
+    public void addGiftToWishlist(String gift) {
+        if (gift != null && !gift.isEmpty()) {
+            wishlist.addGift(gift);
+            System.out.println("Gift added to wishlist: " + gift);
+        }
+    }
+
+    // Method to remove a gift from the wishlist
+    public void removeGiftFromWishlist(String gift) {
+        if (gift != null && !gift.isEmpty()) {
+            wishlist.removeGift(gift);
+            System.out.println("Gift removed from wishlist: " + gift);
+        }
+    }
+
+    // Method to manage funds (e.g., deduct for expenses)
+    public void manageFunds(double amount) {
+        if (amount > 0 && funds >= amount) {
+            funds -= amount;
+            System.out.println("Funds deducted: " + amount + ", Remaining balance: " + funds);
+        } else {
+            System.out.println("Insufficient funds or invalid amount.");
+        }
+    }
+
+    // Method to receive funds (e.g., donations or event revenue)
+    public void receiveFunds(double amount) {
+        if (amount > 0) {
+            funds += amount;
+            System.out.println("Funds received: " + amount + ", Total balance: " + funds);
+        }
     }
 
     @Override
     public String toString() {
-        return "EventOrganizer{name='" + name + "'}";
+        return "EventOrganizer{name='" + name + "', funds=" + funds + "}";
     }
 }
 
-// Minimal stub implementation of Wishlist for testing purposes.
+// Updated Wishlist class to support gift management
 class Wishlist {
+    private List<String> gifts;
+
+    public Wishlist() {
+        this.gifts = new ArrayList<>();
+    }
+
+    public void addGift(String gift) {
+        gifts.add(gift);
+    }
+
+    public void removeGift(String gift) {
+        gifts.remove(gift);
+    }
+
     @Override
     public String toString() {
-        return "Wishlist{}";
+        return "Wishlist" + gifts;
     }
 }
+
 
 // Minimal stub implementation of Media for testing purposes.
 class Media {
@@ -132,4 +200,3 @@ class Media {
         return fileName;
     }
 }
-~~
